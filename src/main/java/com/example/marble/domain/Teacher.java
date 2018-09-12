@@ -6,6 +6,7 @@ import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode
@@ -35,6 +36,14 @@ public class Teacher {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIVERSITY_ID")
     private University university;
+
+
+    // Join table to link the source and target entities of the many to many relationship.
+    @ManyToMany
+    @JoinTable(name = "TEACHER_STUDENT",
+        joinColumns = @JoinColumn(name = "TEACHER_ID"),
+        inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
+    private List<Student> students;
 
 
 }
