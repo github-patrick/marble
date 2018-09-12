@@ -5,6 +5,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -43,7 +44,7 @@ public class Teacher {
     @JoinTable(name = "TEACHER_STUDENT",
         joinColumns = @JoinColumn(name = "TEACHER_ID"),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
-    private List<Student> students;
+    private List<Student> students = new ArrayList<>();
 
 
 }

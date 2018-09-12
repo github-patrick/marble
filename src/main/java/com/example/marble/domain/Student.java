@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 @Data
@@ -34,5 +35,5 @@ public class Student {
     private DegreeType degreeType;
 
     @ManyToMany(mappedBy = "students")
-    private List<Teacher> teachers;
+    private List<Teacher> teachers = new ArrayList<>();
 }

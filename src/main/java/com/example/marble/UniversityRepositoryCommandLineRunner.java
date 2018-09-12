@@ -1,7 +1,10 @@
 package com.example.marble;
 
+import com.example.marble.domain.Student;
 import com.example.marble.domain.Teacher;
 import com.example.marble.domain.University;
+import com.example.marble.domain.enums.DegreeType;
+import com.example.marble.repository.StudentRepository;
 import com.example.marble.repository.TeacherRepository;
 import com.example.marble.repository.UniversityRepository;
 import org.slf4j.Logger;
@@ -24,6 +27,9 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
     @Autowired
     private TeacherRepository teacherRepository;
 
+    @Autowired
+    private StudentRepository studentRepository;
+
     private static final Logger log = LoggerFactory.getLogger(UniversityRepositoryCommandLineRunner.class);
 
 
@@ -42,6 +48,16 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
         teacher.setUniversity(university);
         teacher.setStartDate(new Date());
         teacherRepository.save(teacher);
+
+        Student student = new Student();
+        student.setFirstName("Patrick");
+        student.setLastName("Ugwu");
+        student.setCourse("Computer Science");
+        student.setDegreeType(DegreeType.PhD);
+        student.getTeachers().add(teacher);
+        studentRepository.save(student);
+        ;
+
         log.info("-------------------------------");
     }
 }
