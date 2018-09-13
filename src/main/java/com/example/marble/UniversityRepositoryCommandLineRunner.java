@@ -76,10 +76,10 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
         Teacher teach = teacherRepository.save(teacher);
         teacherRepository.save(teacher2);
 
+        universityRepository.findById(1l).get();
+
 
         List<Teacher> teachers = teacherRepository.findByUniversity(university);
-        System.out.println(teachers.get(0).getUniversity().getName());
-        System.out.println(teachers.get(0).getFirstName());
 
 
 

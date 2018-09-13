@@ -1,6 +1,7 @@
 package com.example.marble.domain;
 
 import com.example.marble.domain.enums.DegreeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -33,6 +34,7 @@ public class Course {
     private DegreeType degreeType;
 
     @OneToMany(mappedBy = "course", fetch = FetchType.LAZY)
+    @JsonIgnore
     private List<Student> students;
 
 }

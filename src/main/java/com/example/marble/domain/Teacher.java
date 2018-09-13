@@ -1,5 +1,6 @@
 package com.example.marble.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -38,8 +39,9 @@ public class Teacher extends BaseEntity{
     // Many Teachers can belong to one university. The university is the FK.
     // FK is stated in the child reference
     // Bi-directional mapping to the parent reference.
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "UNIVERSITY_ID")
+    @JsonIgnore
     private University university;
 
 
@@ -50,6 +52,5 @@ public class Teacher extends BaseEntity{
         joinColumns = @JoinColumn(name = "TEACHER_ID"),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
     private List<Student> students = new ArrayList<>();
-
 
 }

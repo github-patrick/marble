@@ -1,6 +1,7 @@
 package com.example.marble.domain;
 
 import com.example.marble.domain.enums.DegreeType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.ToString;
@@ -46,5 +47,6 @@ public class Student extends BaseEntity {
     private Course course;
 
     @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
+    @JsonIgnore
     private List<Teacher> teachers = new ArrayList<>();
 }
