@@ -1,8 +1,6 @@
 package com.example.marble;
 
-import com.example.marble.domain.Student;
-import com.example.marble.domain.Teacher;
-import com.example.marble.domain.University;
+import com.example.marble.domain.*;
 import com.example.marble.domain.enums.DegreeType;
 import com.example.marble.repository.StudentRepository;
 import com.example.marble.repository.TeacherRepository;
@@ -35,6 +33,8 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
     @Override
     public void run(String... args) throws Exception {
 
+        Course course = Course.builder().name("Biology").degreeType(DegreeType.MA).build();
+
         University university = new University();
         university.setName("Cambridge");
         university.setCreatedAt(new Date());
@@ -56,20 +56,30 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
         Student student = new Student();
         student.setFirstName("Patrick");
         student.setLastName("Ugwu");
-        student.setCourse("Computer Science");
-        student.setDegreeType(DegreeType.PhD);
+        student.setEmail("patrick.ugwu@sentiapps.com");
+        student.setCourse(course);
+        student.setAddress(Address.builder().addressLineOne("10 Downing Street").addressLineTwo("Westminister").postcode("SW10 ERT").build());
+
+        Student student2 = new Student();
+        student2.setFirstName("Jacob");
+        student2.setLastName("Renes");
+        student2.setCourse(course);
+
+        student2.setAddress(Address.builder().addressLineOne("100 Hitchens").addressLineTwo("Enfield").postcode("SW11 ERT").build());
+
 
         teacher.getStudents().add(student);
+        teacher.getStudents().add(student2);
+
 
 
         Teacher teach = teacherRepository.save(teacher);
         teacherRepository.save(teacher2);
 
-        System.out.println(teach);
 
-        List<Teacher> t = teacherRepository.findByUniversity(university);
-
-        Student s = studentRepository.findById(1l).get();
+        List<Teacher> teachers = teacherRepository.findByUniversity(university);
+        System.out.println(teachers.get(0).getUniversity().getName());
+        System.out.println(teachers.get(0).getFirstName());
 
 
 

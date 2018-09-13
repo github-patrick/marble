@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
@@ -15,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Table(name = "STUDENT")
 @Entity
-public class Student {
+public class Student extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,14 +31,20 @@ public class Student {
     @NotEmpty
     private String lastName;
 
-    @Column(name = "COURSE", nullable = false)
-    @NotEmpty
-    private String course;
+    @Column(name = "EMAIL")
+    @Email
+    private String email;
 
-    @Column(name = "DEGREE_TYPE")
-    @Enumerated(EnumType.STRING)
-    private DegreeType degreeType;
+    @OneToOne(cascade = CascadeType.PERSIST)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Address address;
 
-    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinTable(name = "STUDENT_COURSE",
+            joinColumns = @JoinColumn(name = "STUDENT_ID"),
+            inverseJoinColumns = @JoinColumn(name = "COURSE_ID"))
+    private Course course;
+
+    @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
     private List<Teacher> teachers = new ArrayList<>();
 }

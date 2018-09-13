@@ -16,7 +16,7 @@ import java.util.List;
 @Entity
 @ToString
 @Table(name = "TEACHER")
-public class Teacher {
+public class Teacher extends BaseEntity{
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

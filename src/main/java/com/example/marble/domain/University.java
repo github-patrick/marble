@@ -4,17 +4,14 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @Data
 @Entity
 @ToString
 @Table(name = "UNIVERSITY")
-public class University {
+public class University extends BaseEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -30,8 +27,5 @@ public class University {
     // @Transient denotes that this field will not be persisted to the data store.
     @Transient
     private boolean funded;
-
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date createdAt;
 
 }
