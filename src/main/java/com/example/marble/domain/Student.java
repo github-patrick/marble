@@ -6,6 +6,7 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -21,19 +22,22 @@ public class Student {
     @Column(name = "STUDENT_ID")
     private Long id;
 
-    @Column(name = "FIRST_NAME")
+    @Column(name = "FIRST_NAME", nullable = false)
+    @NotEmpty
     private String firstName;
 
-    @Column(name = "LAST_NAME")
+    @Column(name = "LAST_NAME", nullable = false)
+    @NotEmpty
     private String lastName;
 
-    @Column(name = "COURSE")
+    @Column(name = "COURSE", nullable = false)
+    @NotEmpty
     private String course;
 
     @Column(name = "DEGREE_TYPE")
     @Enumerated(EnumType.STRING)
     private DegreeType degreeType;
 
-    @ManyToMany(mappedBy = "students")
+    @ManyToMany(mappedBy = "students", fetch = FetchType.LAZY)
     private List<Teacher> teachers = new ArrayList<>();
 }

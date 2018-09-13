@@ -24,7 +24,7 @@ public class University {
     @Column(name = "UNIVERSITY_NAME", nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "university", fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "university")
     private List<Teacher> teachers = new ArrayList<>();
 
     // @Transient denotes that this field will not be persisted to the data store.

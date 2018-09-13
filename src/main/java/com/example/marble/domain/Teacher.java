@@ -5,6 +5,8 @@ import lombok.EqualsAndHashCode;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -22,9 +24,11 @@ public class Teacher {
     private Long id;
 
     @Column(name = "FIRST_NAME", nullable = false)
+    @NotEmpty
     private String firstName;
 
     @Column(name = "LAST_NAME", nullable = false)
+    @NotEmpty
     private String lastName;
 
     @Temporal(TemporalType.DATE)
@@ -34,13 +38,14 @@ public class Teacher {
     // Many Teachers can belong to one university. The university is the FK.
     // FK is stated in the child reference
     // Bi-directional mapping to the parent reference.
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIVERSITY_ID")
     private University university;
 
 
     // Join table to link the source and target entities of the many to many relationship.
-    @ManyToMany
+    // Cascade PERSIST used to persist a referenced entity
+    @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TEACHER_STUDENT",
         joinColumns = @JoinColumn(name = "TEACHER_ID"),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))

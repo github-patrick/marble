@@ -13,9 +13,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
-import java.sql.Timestamp;
-import java.time.LocalDateTime;
 import java.util.Date;
+import java.util.List;
 
 
 @Component
@@ -47,16 +46,32 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
         teacher.setLastName("Jane");
         teacher.setUniversity(university);
         teacher.setStartDate(new Date());
-        teacherRepository.save(teacher);
+
+        Teacher teacher2 = new Teacher();
+        teacher2.setFirstName("Tommy");
+        teacher2.setLastName("Forster");
+        teacher2.setUniversity(university);
+        teacher2.setStartDate(new Date());
 
         Student student = new Student();
         student.setFirstName("Patrick");
         student.setLastName("Ugwu");
         student.setCourse("Computer Science");
         student.setDegreeType(DegreeType.PhD);
-        student.getTeachers().add(teacher);
-        studentRepository.save(student);
-        ;
+
+        teacher.getStudents().add(student);
+
+
+        Teacher teach = teacherRepository.save(teacher);
+        teacherRepository.save(teacher2);
+
+        System.out.println(teach);
+
+        List<Teacher> t = teacherRepository.findByUniversity(university);
+
+        Student s = studentRepository.findById(1l).get();
+
+
 
         log.info("-------------------------------");
     }
