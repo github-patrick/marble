@@ -16,7 +16,7 @@ import java.util.List;
 @EqualsAndHashCode
 @Entity
 @ToString
-@Table(name = "TEACHER")
+@Table
 public class Teacher extends BaseEntity{
 
     @Id

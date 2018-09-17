@@ -13,7 +13,7 @@ import java.util.List;
 @Data
 @Builder
 @EqualsAndHashCode
-@Table(name = "COURSE",
+@Table(
     uniqueConstraints = @UniqueConstraint(columnNames =
             {"COURSE", "DEGREE_TYPE"}))
 @Entity

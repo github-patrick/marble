@@ -8,7 +8,7 @@ import javax.persistence.*;
 
 @Entity
 @Data
-@Table(name = "ADDRESS")
+@Table
 @EqualsAndHashCode
 @Builder
 public class Address extends BaseEntity{

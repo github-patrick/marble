@@ -1,0 +1,11 @@
+package com.example.marble.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.ResponseStatus;
+
+@ResponseStatus(HttpStatus.NOT_FOUND)
+public class UniversityNotFoundException extends RuntimeException {
+    public UniversityNotFoundException(String message) {
+        super(message);
+    }
+}

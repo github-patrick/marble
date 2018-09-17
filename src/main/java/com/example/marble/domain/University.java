@@ -5,13 +5,15 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
 @Data
 @Entity
 @ToString
-@Table(name = "UNIVERSITY")
+@Table
 public class University extends BaseEntity {
 
     @Id
@@ -19,7 +21,9 @@ public class University extends BaseEntity {
     @Column(name = "UNIVERSITY_ID")
     private Long id;
 
-    @Column(name = "UNIVERSITY_NAME", nullable = false)
+    @Column(name = "UNIVERSITY_NAME", unique = true)
+    @NotNull
+    @NotEmpty(message = "University name cannot be empty")
     private String name;
 
     @OneToMany(mappedBy = "university")
