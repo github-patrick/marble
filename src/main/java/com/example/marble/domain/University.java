@@ -26,7 +26,7 @@ public class University extends BaseEntity {
     @NotEmpty(message = "University name cannot be empty")
     private String name;
 
-    @OneToMany(mappedBy = "university")
+    @OneToMany(mappedBy = "university", fetch = FetchType.EAGER)
     private List<Teacher> teachers = new ArrayList<>();
 
     // @Transient denotes that this field will not be persisted to the data store.

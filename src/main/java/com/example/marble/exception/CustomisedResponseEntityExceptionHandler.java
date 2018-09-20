@@ -31,6 +31,13 @@ public class CustomisedResponseEntityExceptionHandler extends ResponseEntityExce
         return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
     }
 
+    @ExceptionHandler(TeacherNotFoundForUniversityException.class)
+    public ResponseEntity<Object> handleTeacherNotFoundForUniversityException(Exception ex, WebRequest request) {
+        ErrorResponse errorResponse = new ErrorResponse(new Date(), ex.getMessage(), request.getDescription(false), 404);
+
+        return new ResponseEntity(errorResponse, HttpStatus.NOT_FOUND);
+    }
+
     @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpHeaders headers, HttpStatus status, WebRequest request) {
         ErrorResponse errorResponse = new ErrorResponse(new Date(), ex.getMessage(), ex.getBindingResult().getFieldError().getDefaultMessage(), status.value());

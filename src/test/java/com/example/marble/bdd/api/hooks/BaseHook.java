@@ -2,6 +2,7 @@ package com.example.marble.bdd.api.hooks;
 
 
 import com.example.marble.MarbleApplication;
+import com.example.marble.bdd.api.config.TestConfig;
 import com.example.marble.repository.UniversityRepository;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -15,7 +16,7 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.TestPropertySource;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-@ContextConfiguration(classes = MarbleApplication.class)
+@ContextConfiguration(classes = {MarbleApplication.class, TestConfig.class})
 @TestPropertySource("classpath:marble-domain-test.properties")
 @ActiveProfiles("test")
 public class BaseHook {

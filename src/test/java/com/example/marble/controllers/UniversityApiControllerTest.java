@@ -1,12 +1,11 @@
 package com.example.marble.controllers;
 
-import com.example.marble.domain.University;
 import com.example.marble.domain.dtos.UniversityDto;
 import com.example.marble.exception.CustomisedResponseEntityExceptionHandler;
 import com.example.marble.mappers.UniversityMapper;
 import com.example.marble.repository.UniversityRepository;
 import com.example.marble.service.UniversityService;
-import com.example.marble.utils.TestUtils;
+import com.example.marble.utils.helper.TestUtils;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,7 +16,6 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
@@ -72,7 +70,7 @@ public class UniversityApiControllerTest {
     public void displayUniversity() throws Exception {
         UniversityDto universityDto = TestUtils.getDefaultUniversityDto();
 
-        when(universityService.displayUniversity(1l)).thenReturn(universityDto);
+        when(universityService.getUniversity(1l)).thenReturn(universityDto);
 
         mockMvc.perform(get(UniversityApiController.RESOURCE_PATH + "/1")
                 .accept(MediaType.APPLICATION_JSON_UTF8))
@@ -90,7 +88,7 @@ public class UniversityApiControllerTest {
         List<UniversityDto> list = Arrays.asList(TestUtils.getDefaultUniversityDto(),
                 universityDto);
 
-        when(universityService.displayAllUniversities()).thenReturn(list);
+        when(universityService.getAllUniversities()).thenReturn(list);
 
         mockMvc.perform(get(UniversityApiController.RESOURCE_PATH)
                 .accept(MediaType.APPLICATION_JSON_UTF8))

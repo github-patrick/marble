@@ -9,7 +9,6 @@ import com.example.marble.exception.UniversityNotFoundException;
 import com.example.marble.mappers.UniversityMapper;
 import com.example.marble.repository.UniversityRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
@@ -40,7 +39,7 @@ public class UniversityService {
         return universitySavedDto;
     }
 
-    public UniversityDto displayUniversity(Long id) {
+    public UniversityDto getUniversity(Long id) {
         if (!universityRepository.findById(id).isPresent()) {
             throw new UniversityNotFoundException(ErrorMessages.UNIVERSITY_NOT_FOUND);
         }
@@ -49,7 +48,7 @@ public class UniversityService {
     }
 
 
-    public List<UniversityDto> displayAllUniversities() {
+    public List<UniversityDto> getAllUniversities() {
         List<UniversityDto> universityDtos = new ArrayList<>();
         Iterator<University> iterator = universityRepository.findAll().iterator();
 
@@ -59,5 +58,14 @@ public class UniversityService {
 
         return universityDtos;
 
+    }
+
+    public void updateUniversity(UniversityDto universityDto) {
+        if (universityRepository.existsByName(universityDto.getName())) {
+            throw new UniversityExistsException(ErrorMessages.UNIVERSITY_EXISTS);
+        }
+
+        University university = universityMapper.map(universityDto);
+        universityRepository.save(university);
     }
 }

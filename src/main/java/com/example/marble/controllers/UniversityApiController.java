@@ -2,26 +2,21 @@ package com.example.marble.controllers;
 
 import com.example.marble.domain.University;
 import com.example.marble.domain.dtos.UniversityDto;
-import com.example.marble.exception.ErrorMessages;
-import com.example.marble.exception.UniversityNotFoundException;
 import com.example.marble.mappers.UniversityMapper;
-import com.example.marble.repository.UniversityRepository;
 import com.example.marble.service.UniversityService;
-import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import javax.xml.ws.Response;
 import java.util.List;
 
 @RestController
 @RequestMapping(UniversityApiController.RESOURCE_PATH)
 public class UniversityApiController {
 
-    public static final String RESOURCE_PATH = "/university";
+    public static final String RESOURCE_PATH = "/universities";
 
 
     // GET /universities/
@@ -55,13 +50,22 @@ public class UniversityApiController {
     @GetMapping(value = "{id}")
     public ResponseEntity<UniversityDto> displayUniversity(@PathVariable Long id) {
 
-        UniversityDto universityDto = universityService.displayUniversity(id);
+        UniversityDto universityDto = universityService.getUniversity(id);
         return new ResponseEntity(universityDto, HttpStatus.OK);
     }
 
     @GetMapping
     public ResponseEntity<List<UniversityDto>> displayAllUniversities() {
-        return new ResponseEntity(universityService.displayAllUniversities(), HttpStatus.OK);
+        return new ResponseEntity(universityService.getAllUniversities(), HttpStatus.OK);
+    }
+
+    @PutMapping(value = "{id}")
+    public ResponseEntity updateUniversity(@PathVariable Long id, @Valid @RequestBody UniversityDto universityDto) {
+
+        universityDto.setId(id);
+        universityService.updateUniversity(universityDto);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 

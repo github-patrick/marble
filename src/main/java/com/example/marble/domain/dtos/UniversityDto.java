@@ -18,7 +18,7 @@ public class UniversityDto {
     @NotEmpty(message = "University name cannot be empty")
     private String name;
 
-    private List<Teacher> teachers;
+    private List<TeacherDto> teachers;
 
     private boolean funded;
 
