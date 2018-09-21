@@ -3,6 +3,7 @@ package com.example.marble.bdd.api.hooks;
 
 import com.example.marble.MarbleApplication;
 import com.example.marble.bdd.api.config.TestConfig;
+import com.example.marble.repository.TeacherRepository;
 import com.example.marble.repository.UniversityRepository;
 import cucumber.api.java.After;
 import cucumber.api.java.Before;
@@ -31,15 +32,17 @@ public class BaseHook {
     @Autowired
     private UniversityRepository universityRepository;
 
+    @Autowired
+    private TeacherRepository teacherRepository;
+
 
     @Before
     public void setUp() {
-
+        teacherRepository.deleteAll();
         universityRepository.deleteAll();
 
         RestAssured.port = port;
         RestAssured.baseURI = baseUri;
-//        RestAssured.defaultParser = Parser.JSON;
     }
 
     @After

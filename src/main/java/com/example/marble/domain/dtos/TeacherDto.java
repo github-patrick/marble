@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.ToString;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -24,6 +25,14 @@ public class TeacherDto {
     private String lastName;
 
     private Date startDate;
+
+    @NotEmpty
+    @NotNull
+    private String nationality;
+
+    @NotEmpty
+    @NotNull
+    private String position;
 
     @JsonIgnore
     private UniversityDto university;

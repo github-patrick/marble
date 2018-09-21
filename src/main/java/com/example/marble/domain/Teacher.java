@@ -34,6 +34,14 @@ public class Teacher extends BaseEntity{
     @Temporal(TemporalType.DATE)
     private Date startDate;
 
+    @Column(name = "NATIONALITY", nullable = false)
+    @NotEmpty
+    private String nationality;
+
+    @Column(name = "POSITION", nullable = false)
+    @NotEmpty
+    private String position;
+
 
     // Many Teachers can belong to one university. The university is the FK.
     // FK is stated in the child reference

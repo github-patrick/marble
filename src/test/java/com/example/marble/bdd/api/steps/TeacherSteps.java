@@ -12,7 +12,6 @@ import com.example.marble.controllers.UniversityApiController;
 import com.example.marble.domain.University;
 import com.example.marble.utils.RequestData;
 import com.example.marble.utils.ResponseData;
-import cucumber.api.PendingException;
 import cucumber.api.java.en.Given;
 import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
@@ -46,6 +45,8 @@ public class TeacherSteps {
     private String firstName;
     private String lastName;
     private Date startDate;
+    private String position;
+    private String nationality;
 
     @Given("^I am on the teachers end point$")
     public void i_am_on_the_teachers_end_point() throws Throwable {
@@ -105,6 +106,16 @@ public class TeacherSteps {
     public void i_have_a_teacher_last_name_of(String lastName) throws Throwable {
         this.lastName = lastName;
 
+    }
+
+    @Given("^I have a position of \"([^\"]*)\"$")
+    public void i_have_a_position_of(String position) throws Throwable {
+        this.position = position;
+    }
+
+    @Given("^I have a nationality of \"([^\"]*)\"$")
+    public void i_have_a_nationality_of(String nationality) throws Throwable {
+        this.nationality = nationality;
     }
 
     @Given("^I have a teacher start date$")
@@ -185,11 +196,26 @@ public class TeacherSteps {
         assertEquals(lastName, teacher.getLastName());
     }
 
+    @Then("^I should see the teacher nationality as \"([^\"]*)\" in the response$")
+    public void i_should_see_the_teacher_nationality_as_in_the_response(String arg1) throws Throwable {
+        Teacher teacher = teacherHelper.getFirstTeacherByUniversity(universityHelper.getFirstUniversity());
+        assertEquals(nationality, teacher.getNationality());
+    }
+
+
+    @Then("^I should see the teacher position as \"([^\"]*)\" in the response$")
+    public void i_should_see_the_teacher_position_as_in_the_response(String arg1) throws Throwable {
+        Teacher teacher = teacherHelper.getFirstTeacherByUniversity(universityHelper.getFirstUniversity());
+        assertEquals(position, teacher.getPosition());
+    }
+
 
     private Map<String,String> setAndReturnBody() {
         Map<String,String> body = new HashMap<>();
         body.put("firstName", firstName);
         body.put("lastName", lastName);
+        body.put("position", position);
+        body.put("nationality", nationality);
         body.put("startDate", startDate.toInstant().toString());
         requestData.getRequest().body(body);
         return body;

@@ -25,6 +25,8 @@ public class TestUtils {
         Teacher teacher = new Teacher();
         teacher.setFirstName("Lucy");
         teacher.setLastName("Noble");
+        teacher.setNationality("Brazilian");
+        teacher.setPosition("IT Administrator");
         teacher.setStartDate(new Date());
         teacher.setUniversity(getDefaultUniversity());
 
@@ -35,6 +37,8 @@ public class TestUtils {
         TeacherDto teacherDto = new TeacherDto();
         teacherDto.setFirstName("Lucy");
         teacherDto.setLastName("Noble");
+        teacherDto.setNationality("Brazilian");
+        teacherDto.setPosition("IT Administrator");
         teacherDto.setStartDate(new Date());
         teacherDto.setUniversity(getDefaultUniversityDto());
 

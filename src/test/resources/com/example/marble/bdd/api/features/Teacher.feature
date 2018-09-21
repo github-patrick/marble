@@ -14,11 +14,17 @@ Feature: As a client
       And I set the request header "Content-Type" as "application/json"
       And I have a teacher first name of "Deborah"
       And I have a teacher last name of "Smith"
+      And I have a position of "Lecturer"
+      And I have a nationality of "Brazilian"
       And I have a teacher start date
       When I make a request to post the teacher
       Then I should see the response code is 201
+      And I should see the teacher last name as "Smith" in the response
+      And I should see the teacher nationality as "Brazilian" in the response
+      And I should see the teacher position as "Lecturer" in the response
 
-     @High
+
+  @High
     Scenario: A client can retrieve a teacher under a university
        Given I have 1 teachers
        And I set the request header "Accept" as "application/json"
