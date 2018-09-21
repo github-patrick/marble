@@ -3,6 +3,7 @@ package com.example.marble.bdd.api.steps;
 import com.example.marble.domain.Teacher;
 import com.example.marble.domain.dtos.TeacherDto;
 import com.example.marble.domain.dtos.UniversityDto;
+import com.example.marble.mappers.TeacherMapper;
 import com.example.marble.utils.helper.TeacherHelper;
 import com.example.marble.utils.helper.TestUtils;
 import com.example.marble.utils.helper.UniversityHelper;
@@ -38,6 +39,9 @@ public class TeacherSteps {
 
     @Autowired
     private TeacherHelper teacherHelper;
+
+    @Autowired
+    private TeacherMapper teacherMapper;
 
     private String firstName;
     private String lastName;
@@ -115,6 +119,26 @@ public class TeacherSteps {
 
     }
 
+    @Given("^I change the teacher last name to \"([^\"]*)\"$")
+    public void i_change_the_teacher_last_name_to(String lastName) throws Throwable {
+        this.lastName = lastName;
+    }
+
+    @When("^I make a request to update the teacher$")
+    public void i_make_a_request_to_update_the_teacher() throws Throwable {
+        University university = universityHelper.getFirstUniversity();
+        Teacher teacher = teacherHelper.getFirstTeacherByUniversity(university);
+        TeacherDto teacherDto = teacherMapper.map(teacher);
+
+        teacherDto.setLastName(lastName);
+        responseData.setResponse(requestData.getRequest().
+                given().
+                    body(teacherDto).
+                when().
+                    put("{teacherId}",university.getId(), teacherDto.getId()));
+    }
+
+
     @When("^I make a request to post the teacher$")
     public void i_make_a_request_to_post_the_teacher() throws Throwable {
 
@@ -153,6 +177,12 @@ public class TeacherSteps {
     public void i_should_have_teachers_in_the_response(int size) throws Throwable {
         List<TeacherDto> teacherDtoList = responseData.getResponse().as(List.class);
         assertEquals(size, teacherDtoList.size());
+    }
+
+    @Then("^I should see the teacher last name as \"([^\"]*)\" in the response$")
+    public void i_should_see_the_teacher_last_name_as_in_the_response(String lastName) throws Throwable {
+        Teacher teacher = teacherHelper.getFirstTeacherByUniversity(universityHelper.getFirstUniversity());
+        assertEquals(lastName, teacher.getLastName());
     }
 
 

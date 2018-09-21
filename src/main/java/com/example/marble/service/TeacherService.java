@@ -59,4 +59,10 @@ public class TeacherService {
         }
         return teacherDtos;
     }
+
+    public void updateTeacher(TeacherDto teacherDto) {
+
+        Teacher teacher = teacherMapper.map(teacherDto);
+        teacherRepository.save(teacher);
+    }
 }

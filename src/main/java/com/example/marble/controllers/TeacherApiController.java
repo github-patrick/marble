@@ -2,7 +2,6 @@ package com.example.marble.controllers;
 
 import com.example.marble.domain.dtos.TeacherDto;
 import com.example.marble.domain.dtos.UniversityDto;
-import com.example.marble.mappers.TeacherMapper;
 import com.example.marble.service.TeacherService;
 import com.example.marble.service.UniversityService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,6 +54,16 @@ public class TeacherApiController {
         List<TeacherDto> teacherDtoList = teacherService.getAllTeachers(universityDto);
 
         return new ResponseEntity (teacherDtoList, HttpStatus.OK);
+    }
+
+    @PutMapping(value = "{teacherId}")
+    public ResponseEntity updateUniversity(@PathVariable Long universityId, @PathVariable Long teacherId, @Valid @RequestBody TeacherDto teacherDto) {
+
+        teacherDto.setId(teacherId);
+        teacherDto.setUniversity(universityService.getUniversity(universityId));
+        teacherService.updateTeacher(teacherDto);
+
+        return new ResponseEntity(HttpStatus.NO_CONTENT);
     }
 
 }

@@ -44,6 +44,17 @@ Feature: As a client
       And I should have 3 teachers in the response
 
 
+  @Medium
+  Scenario: A client can update a teacher
+    Given I have 1 teachers
+    And I set the request header "Accept" as "application/json"
+    And I set the request header "Content-Type" as "application/json"
+    And I change the teacher last name to "Taylor"
+    When I make a request to update the teacher
+    Then I should see the response code is 204
+   And I should see the teacher last name as "Taylor" in the response
+
+
 
 
 

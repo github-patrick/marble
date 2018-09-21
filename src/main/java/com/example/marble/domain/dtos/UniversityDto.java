@@ -1,6 +1,7 @@
 package com.example.marble.domain.dtos;
 
 import com.example.marble.domain.Teacher;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 import lombok.ToString;
 
@@ -20,6 +21,7 @@ public class UniversityDto {
 
     private List<TeacherDto> teachers;
 
+    @JsonIgnore
     private boolean funded;
 
 

@@ -38,7 +38,7 @@ public class Teacher extends BaseEntity{
     // Many Teachers can belong to one university. The university is the FK.
     // FK is stated in the child reference
     // Bi-directional mapping to the parent reference.
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "UNIVERSITY_ID")
     @JsonIgnore
     private University university;
