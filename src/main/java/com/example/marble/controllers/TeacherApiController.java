@@ -57,7 +57,8 @@ public class TeacherApiController {
     }
 
     @PutMapping(value = "{teacherId}")
-    public ResponseEntity updateUniversity(@PathVariable Long universityId, @PathVariable Long teacherId, @Valid @RequestBody TeacherDto teacherDto) {
+    public ResponseEntity updateTeacher(@PathVariable Long universityId, @PathVariable Long teacherId, @Valid @RequestBody
+            TeacherDto teacherDto) {
 
         teacherDto.setId(teacherId);
         teacherDto.setUniversity(universityService.getUniversity(universityId));

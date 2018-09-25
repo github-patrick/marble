@@ -65,4 +65,13 @@ public class TeacherService {
         Teacher teacher = teacherMapper.map(teacherDto);
         teacherRepository.save(teacher);
     }
+
+    public TeacherDto getOneTeacher(Long teacherId) {
+
+        if (!teacherRepository.findById(teacherId).isPresent()) {
+            throw new TeacherNotFoundForUniversityException(ErrorMessages.TEACHER_NOT_FOUND_FOR_UNIVERSITY);
+        }
+        Teacher teacher = teacherRepository.findById(teacherId).get();
+        return teacherMapper.map(teacher);
+    }
 }

@@ -9,8 +9,12 @@ import org.springframework.stereotype.Component;
 @Component
 public class TeacherMapper {
 
-    @Autowired
     private ModelMapper modelMapper;
+
+    @Autowired
+    public TeacherMapper(ModelMapper modelMapper) {
+        this.modelMapper = modelMapper;
+    }
 
     public TeacherDto map(Teacher teacher) {
         TeacherDto teacherDto = modelMapper.map(teacher, TeacherDto.class);

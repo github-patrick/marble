@@ -16,4 +16,7 @@ public interface TeacherRepository extends CrudRepository<Teacher, Long> {
 
     Optional<Teacher> findTeacherByUniversityAndId(University university, Long id);
 
+    Optional<Teacher> findFirstByOrderByCreatedAt();
+
+
 }

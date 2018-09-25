@@ -17,4 +17,7 @@ public class TeacherHelper {
         return teacherRepository.findByUniversity(university).get(0);
     }
 
+    public Teacher getFirstTeacher() {
+        return teacherRepository.findFirstByOrderByCreatedAt().get();
+    }
 }

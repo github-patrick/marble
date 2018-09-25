@@ -14,7 +14,7 @@ import java.util.List;
 @Data
 @EqualsAndHashCode
 @Entity
-@ToString(exclude = "university")
+@ToString(exclude = {"university","students"})
 @Table
 public class Teacher extends BaseEntity{
 
@@ -56,8 +56,8 @@ public class Teacher extends BaseEntity{
     // Cascade PERSIST used to persist a referenced entity
     @ManyToMany(cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     @JoinTable(name = "TEACHER_STUDENT",
-        joinColumns = @JoinColumn(name = "TEACHER_ID"),
+        joinColumns = @JoinColumn(name = "TEACHER_ID", nullable = false, updatable = false),
         inverseJoinColumns = @JoinColumn(name = "STUDENT_ID"))
-    private List<Student> students = new ArrayList<>();
+    private List<Student> students;
 
 }

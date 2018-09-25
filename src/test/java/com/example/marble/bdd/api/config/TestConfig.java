@@ -1,6 +1,8 @@
 package com.example.marble.bdd.api.config;
 
+import com.example.marble.utils.helper.StudentHelper;
 import com.example.marble.utils.helper.TeacherHelper;
+import com.example.marble.utils.helper.TestUtils;
 import com.example.marble.utils.helper.UniversityHelper;
 import com.example.marble.utils.RequestData;
 import com.example.marble.utils.ResponseData;
@@ -33,6 +35,12 @@ public class TestConfig {
     @Scope("cucumber-glue")
     public TeacherHelper teacherHelper() {
         return new TeacherHelper();
+    }
+
+    @Bean
+    @Scope("cucumber-glue")
+    public StudentHelper studentHelper() {
+        return new StudentHelper();
     }
 
 

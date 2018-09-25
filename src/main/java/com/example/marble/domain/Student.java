@@ -48,5 +48,5 @@ public class Student extends BaseEntity {
 
     @ManyToMany(mappedBy = "students", fetch = FetchType.EAGER)
     @JsonIgnore
-    private List<Teacher> teachers = new ArrayList<>();
+    private List<Teacher> teachers;
 }
