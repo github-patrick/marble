@@ -35,7 +35,9 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
     @Override
     public void run(String... args) throws Exception {
 
-        Course course = Course.builder().name("Biology").degreeType(DegreeType.MA).build();
+        Course course = new Course();
+        course.setName("Chemistry");
+        course.setDegreeType(DegreeType.BFA);
 
         University university = new University();
         university.setName("Cambridge");
@@ -62,19 +64,24 @@ public class UniversityRepositoryCommandLineRunner implements CommandLineRunner 
         teacher2.setStudents(new ArrayList<>());
 
 
+
+        Address address = new Address();
+        address.setAddressLineOne("119  Souterhead Road");
+        address.setAddressLineTwo("LOSTOCK GRALAM");
+        address.setPostcode("CW9 4RL");
         Student student = new Student();
         student.setFirstName("Patrick");
         student.setLastName("Ugwu");
         student.setEmail("patrick.ugwu@sentiapps.com");
         student.setCourse(course);
-        student.setAddress(Address.builder().addressLineOne("10 Downing Street").addressLineTwo("Westminister").postcode("SW10 ERT").build());
+        student.setAddress(address);
 
         Student student2 = new Student();
         student2.setFirstName("Jacob");
         student2.setLastName("Renes");
         student2.setCourse(course);
 
-        student2.setAddress(Address.builder().addressLineOne("100 Hitchens").addressLineTwo("Enfield").postcode("SW11 ERT").build());
+        student2.setAddress(address);
 
 
         teacher.getStudents().add(student);

@@ -33,7 +33,7 @@ public class StudentDto {
     private Address address;
 
 
-    private Course course;
+    private CourseDto course;
 
     @JsonIgnore
     private List<TeacherDto> teachers = new ArrayList<>();

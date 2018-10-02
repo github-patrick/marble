@@ -6,4 +6,5 @@ public class ErrorMessages {
     public static final String UNIVERSITY_EXISTS = "University exists already";
     public static final String TEACHER_NOT_FOUND_FOR_UNIVERSITY = "Teacher not found for the university";
     public static final String STUDENT_NOT_FOUND_FOR_UNIVERSITY = "Student not found for this teacher";
+    public static final String STUDENT_NOT_FOUND = "Student not found" ;
 }

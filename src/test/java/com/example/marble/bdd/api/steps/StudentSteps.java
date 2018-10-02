@@ -1,10 +1,11 @@
 package com.example.marble.bdd.api.steps;
 
 import com.example.marble.controllers.StudentApiController;
+import com.example.marble.domain.Address;
+import com.example.marble.domain.Course;
 import com.example.marble.domain.Student;
 import com.example.marble.domain.Teacher;
 import com.example.marble.domain.dtos.StudentDto;
-import com.example.marble.domain.dtos.TeacherDto;
 import com.example.marble.mappers.StudentMapper;
 import com.example.marble.utils.RequestData;
 import com.example.marble.utils.ResponseData;
@@ -45,6 +46,8 @@ public class StudentSteps {
     private String firstName;
     private String lastName;
     private String email;
+    private Address address;
+    private Course course;
 
 
     @Given("^I am on the students end point$")
@@ -110,6 +113,34 @@ public class StudentSteps {
         this.email = email;
     }
 
+    @Given("^I change the student first name to \"([^\"]*)\"$")
+    public void i_change_the_student_first_name_to(String firstName) throws Throwable {
+        this.firstName = firstName;
+    }
+
+    @Given("^I change the student address to default$")
+    public void i_change_the_student_address_to_default() throws Throwable {
+        address = TestUtils.getDefaultAddress();
+    }
+
+    @Given("^I change the student course to default$")
+    public void i_change_the_student_course_to_default() throws Throwable {
+        this.course = TestUtils.getDefaultCourse();
+    }
+
+    @When("^I make a request to patch the student$")
+    public void i_make_a_request_to_patch_the_student() throws Throwable {
+        Teacher teacher = teacherHelper.getFirstTeacher();
+        Student student = studentHelper.getFirstStudentByTeacher(teacher);
+
+        responseData.setResponse(requestData.getRequest().
+                given().
+                body(setAndReturnBody()).
+                when().
+                patch("{teacherId}",teacher.getId(), student.getId()));
+
+    }
+
 
     @When("^I make a request to update the student$")
     public void i_make_a_request_to_update_the_student() throws Throwable {
@@ -164,11 +195,13 @@ public class StudentSteps {
     }
 
 
-    private Map<String,String> setAndReturnBody() {
-        Map<String,String> body = new HashMap<>();
+    private Map<String,Object> setAndReturnBody() {
+        Map<String,Object> body = new HashMap<>();
         body.put("firstName", firstName);
         body.put("lastName", lastName);
         body.put("email", email);
+        body.put("address", address);
+        body.put("course", course);
         requestData.getRequest().body(body);
         return body;
     }

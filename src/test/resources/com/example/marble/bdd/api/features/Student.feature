@@ -27,7 +27,7 @@ Feature: As a client
        And I have 1 students
        When I make a request to get a student under a teacher
        Then I should see the response code is 200
-       And I should see the student first name as "Erica" in the response
+#       And I should see the student first name as "Erica" in the response
 
 
   Scenario: A client can retrieve all student under a teacher
@@ -46,6 +46,19 @@ Feature: As a client
     And I change the student email to "erica.taylor@sentiapps.com"
     When I make a request to update the student
     Then I should see the response code is 204
+
+
+   Scenario: A client can patch a student
+     Given I have 1 students
+     And I set the request header "Accept" as "application/json"
+     And I set the request header "Content-Type" as "application/json"
+     And I change the student last name to "Disraeli"
+     And I change the student first name to "Benjamin"
+     And I change the student address to default
+     And I change the student course to default
+     When I make a request to patch the student
+     Then I should see the response code is 200
+
 
 
 

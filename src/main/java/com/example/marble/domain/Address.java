@@ -3,6 +3,7 @@ package com.example.marble.domain;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
 
@@ -10,7 +11,6 @@ import javax.persistence.*;
 @Data
 @Table
 @EqualsAndHashCode
-@Builder
 public class Address extends BaseEntity{
 
     @Id

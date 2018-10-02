@@ -19,6 +19,7 @@ import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 
 import static org.junit.Assert.*;
 import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.patch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -45,7 +46,7 @@ public class StudentApiControllerTest {
     }
 
     @Test
-    public void createTeacher() throws Exception {
+    public void createStudent() throws Exception {
 
         StudentDto studentDto = TestUtils.getDefaultStudentDto();
         TeacherDto teacherDto = TestUtils.getDefaultTeacherDto();
@@ -60,4 +61,20 @@ public class StudentApiControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
     }
+
+    @Test
+    public void patchStudent() throws Exception {
+
+        StudentDto studentDto = TestUtils.getDefaultStudentDto();
+        studentDto.setCourse(TestUtils.getDefaultCourseDto());
+
+        mockMvc.perform(patch(StudentApiController.RESOURCE_PATH + "/1", "1")
+                .accept(MediaType.APPLICATION_JSON_UTF8)
+                .contentType(MediaType.APPLICATION_JSON_UTF8)
+                .content(new ObjectMapper().writeValueAsString(studentDto)))
+                .andDo(print())
+                .andExpect(status().isOk());
+
+    }
+
 }

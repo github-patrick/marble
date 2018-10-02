@@ -6,6 +6,7 @@ import com.example.marble.domain.University;
 import com.example.marble.domain.dtos.StudentDto;
 import com.example.marble.domain.dtos.TeacherDto;
 import com.example.marble.exception.ErrorMessages;
+import com.example.marble.exception.StudentNotFoundException;
 import com.example.marble.exception.StudentNotFoundForTeacherException;
 import com.example.marble.exception.TeacherNotFoundForUniversityException;
 import com.example.marble.mappers.StudentMapper;
@@ -13,6 +14,7 @@ import com.example.marble.mappers.TeacherMapper;
 import com.example.marble.repository.StudentRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.validation.ValidationUtils;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -74,5 +76,39 @@ public class StudentService {
     public void updateStudent(StudentDto studentDto) {
         Student student = studentMapper.map(studentDto);
         studentRepository.save(student);
+    }
+
+    public StudentDto patchStudent(Long studentId, StudentDto studentDto) {
+
+        if (!studentRepository.findById(studentId).isPresent()) {
+            throw new StudentNotFoundException(ErrorMessages.STUDENT_NOT_FOUND);
+        }
+
+        StudentDto studentRetrievedDto = studentMapper.map(studentRepository.findById(studentId).get());
+
+        if (studentDto.getFirstName() != null) {
+            studentRetrievedDto.setFirstName(studentDto.getFirstName());
+        }
+        if (studentDto.getLastName() != null) {
+            studentRetrievedDto.setLastName(studentDto.getLastName());
+        }
+        if (studentDto.getTeachers() != null) {
+            studentDto.setTeachers(studentDto.getTeachers());
+        }
+        if (studentDto.getEmail() != null) {
+            studentRetrievedDto.setEmail(studentDto.getEmail());
+        }
+        if (studentDto.getCourse() != null) {
+            studentRetrievedDto.setCourse(studentDto.getCourse());
+        }
+        if (studentDto.getAddress() != null) {
+            studentRetrievedDto.setAddress(studentDto.getAddress());
+        }
+
+        Student studentDtoSaved = studentRepository.save(studentMapper.map(studentRetrievedDto));
+
+
+        return studentMapper.map(studentDtoSaved);
+
     }
 }

@@ -11,7 +11,6 @@ import javax.validation.constraints.NotEmpty;
 import java.util.List;
 
 @Data
-@Builder
 @EqualsAndHashCode
 @Table(
     uniqueConstraints = @UniqueConstraint(columnNames =

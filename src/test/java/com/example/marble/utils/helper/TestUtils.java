@@ -1,10 +1,11 @@
 package com.example.marble.utils.helper;
 
+import com.example.marble.domain.Address;
+import com.example.marble.domain.Course;
 import com.example.marble.domain.Teacher;
 import com.example.marble.domain.University;
-import com.example.marble.domain.dtos.StudentDto;
-import com.example.marble.domain.dtos.TeacherDto;
-import com.example.marble.domain.dtos.UniversityDto;
+import com.example.marble.domain.dtos.*;
+import com.example.marble.domain.enums.DegreeType;
 import org.fluttercode.datafactory.impl.DataFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -59,5 +60,27 @@ public class TestUtils {
         studentDto.getTeachers().add(getDefaultTeacherDto());
 
         return studentDto;
+    }
+
+    public static CourseDto getDefaultCourseDto() {
+        CourseDto courseDto = new CourseDto();
+        courseDto.setName("Humanities");
+        courseDto.setDegreeType(DegreeType.MA);
+        return courseDto;
+    }
+
+    public static Course getDefaultCourse() {
+        Course course = new Course();
+        course.setName("Humanities");
+        course.setDegreeType(DegreeType.MA);
+        return course;
+    }
+
+    public static Address getDefaultAddress() {
+        Address address = new Address();
+        address.setAddressLineOne("44  Wartnaby Road");
+        address.setAddressLineTwo("BICKHAM BRIDGE");
+        address.setPostcode("TQ9 1DE");
+        return address;
     }
 }

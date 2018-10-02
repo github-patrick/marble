@@ -2,7 +2,6 @@ package com.example.marble.controllers;
 
 import com.example.marble.domain.dtos.StudentDto;
 import com.example.marble.domain.dtos.TeacherDto;
-import com.example.marble.domain.dtos.UniversityDto;
 import com.example.marble.service.StudentService;
 import com.example.marble.service.TeacherService;
 import com.example.marble.service.UniversityService;
@@ -67,6 +66,14 @@ public class StudentApiController {
         studentService.updateStudent(studentDto);
 
         return new ResponseEntity(HttpStatus.NO_CONTENT);
+    }
+
+    @PatchMapping(value = "{studentId}")
+    public ResponseEntity<StudentDto> patchStudent(@PathVariable Long teacherId, @PathVariable Long studentId,
+                                                   @RequestBody StudentDto studentDto) {
+        teacherService.getOneTeacher(teacherId);
+
+        return new ResponseEntity(studentService.patchStudent(studentId, studentDto), HttpStatus.OK);
     }
 
 
